@@ -42,6 +42,15 @@ save in the path, don't run it.
 
 The next task is to be named task2.R and so on.
 
+It is worth noting that when running task1.R is finished, a file called task1Complete.txt will show up. If you remove this .txt file the task 1 will be runned again, hence replacement of the output files of task 1 will return NO WARNING.
+
+
+## Packages and configurations
+
+I do recommend that within each task file, relative path be used. With most functions of R.\
+
+Using R>3.3 should work, but it is better to use same version of R with same version packages as estimating execution time for packages on remote workers can be hard.
+
 ## Parallelism?
 
 
@@ -56,9 +65,26 @@ library(doParallel)
 registerDoParWorkers(4)# using 4, in most cases we expect a parallel loop to be accelerated by 2.5x, timed with my 3 PCs
 ```
 
+We use foreach() %dopar% {} machanism because it is easy to deploy (regardless of names of workers, etc. ). Although it is just a toy in parallel computing,  writing such embarassing parallel code is easy and convenient. 
+
+Also if packages are only used in the parallel loop we can use the .packages =... argument (so that you don't have to worry if a worker computer have certain packages loaded or not).
+
+As a number of R tasks have optimal performance when no more than 6 cores are used, cross-machine parallelism is not considered.
+
+For more sophisticated materials for parallel computing. See:
+https://www.r-bloggers.com/snow-and-ssh-secure-inter-machine-parallelism-with-r/
+
+https://stackoverflow.com/questions/25508400/r-parallel-connecting-to-remote-cores
+
+https://www.r-bloggers.com/running-r-jobs-quickly-on-many-machines/
+
+http://www.win-vector.com/blog/2016/01/parallel-computing-in-r/
+
+
+
 ## More than 1 remote machines?
 
-Option to avoid overlaps of tasks for more than 1 machines is to be done. Feel free to drop a message on the issues box.
+Option to avoid overlaps of tasks for more than 1 machines is to be done (you can use the code so far but some missions may be done twice or mroe time, which is a waste of computing power). Feel free to drop a message on the issues box.
 
 
 
